@@ -1,0 +1,122 @@
+<html>
+<head>
+	<script type="text/javascript" src="Pie.js"></script>
+</head>
+<body>
+	<div id="id"></div>
+
+	<script type="text/javascript">
+		window.addEventListener('DOMContentLoaded', (event) => {
+		  let div = document.getElementById('id')
+
+		  // The red circle
+
+		  let svg = new Pie.El({
+		    type: "svg",
+		    name: "svg",
+		    attrs: {
+		      id: "svg",
+		      width: "300",
+		      height: "300",
+		      xmlns: "http://www.w3.org/2000/svg"
+		    }
+		  })
+
+		  var c = new Pie.El({
+		    type: "svg",
+		    name: "circle",
+		    attrs: {
+		      cx: 50,
+		      cy: 50,
+		      r: 50
+		    },
+		    events: {
+		      mousedown: (e) => { console.log(e) }
+		    }
+		  })
+
+		  var c1 = new Pie.El({
+		    type: "svg",
+		    name: "circle",
+		    attrs: {
+		      cx: 150,
+		      cy: 150,
+		      r: 150,
+		      fill: "red"
+		    },
+		    events: {
+		      mousedown: () => {},
+		      mouseout: (e) => { console.log("mouse out") },
+		      mouseup: (e) => { console.log("mouse up") }
+		    }
+		  })
+
+		  var c2 = c1.clone({attrs: { cx: 200, cy: 200, r: 32, fill: "#fff", stroke: "#000" }})
+
+		  svg.append([c, c1, c2])
+
+		  div.appendChild(svg.node)
+
+		  // The pie
+
+		  const nodes = [{
+		    name: 'x',
+		    onclick: () => {
+		      console.warn('x')
+		    },
+		    children: []
+		  },{
+		    name: 'yy',
+		    onclick: () => {
+		      alert('y')
+		    },
+		    children: []
+		  },{
+		    name: 'z',
+		    onclick: () => {
+		    },
+		    children: [{
+		      name: 'w',
+		      onclick: () => {
+		      },
+		      children: []
+		    },{
+		      name: 'a',
+		      onclick: () => {
+		      },
+		      children: []
+		    }]
+		  },{
+		    name: 'w',
+		    onclick: () => {
+		    },
+		    children: []
+		  },{
+		    name: 'a',
+		    onclick: () => {
+		    },
+		    children: []
+		  },{
+		    name: 'xyz',
+		    onclick: () => {
+		    },
+		    children: []
+		  }]
+
+		  console.log(nodes)
+
+		  // Create a single pie
+
+		  // let w = 220, t = w/2, n = nodes.length
+		  // const thePie = new Pie.Pie({ w: w, n: n, r: t/1.4, t: t, f: false, nodes: nodes, parentid: '0' })
+		  //  div.appendChild(thePie.node)
+
+		  // Tree of pies
+
+		  const pieTree = Pie.pies(nodes);
+
+		  pieTree.map(pie => { div.appendChild(pie.node) })
+		})
+	</script>
+</body>
+</html>
